@@ -1,8 +1,8 @@
 //console.log(navigator)
 let audio = new Audio('sounds/testing.mp3');
-
+let device;
 if(navigator.requestMIDIAccess) {
-    navigator.requestMIDIACCess().then(success, failure);
+    navigator.requestMIDIAccess().then(success, failure);
 }
 
 function failure(){
@@ -16,9 +16,15 @@ function updateDevices(event)
 
 function success(midiAccess){
     //console.log(midiAccess);
-    midiAccess.addEventListener('statechange', updatedDevices);
+    midiAccess.addEventListener('statechange', updateDevices);
     const inputs = midiAccess.inputs; 
-    console.log(inputs);
+
+    //console.log(midiAccess.outputs);
+
+    for(var output of midiAccess.outputs.values()) {
+        device = output;
+        //console.log('Output device selected', device);
+    }
 
     inputs.forEach((input) => {
         //console.log(input);
@@ -51,9 +57,16 @@ function noteOn(note) {
 
     console.log(`note:${note} //on`);
     if (note == 64) {
-    document.getElementById("testelm").innerHTML = "Note 64 is On"
+    document.getElementById("testelm").innerHTML = "This is the cat image project.";
+    colorKeys(65, 127);
+
+    }
+    if(note == 65)
+    {
+        clearAll();
     }
     if (note == 96) {
+        colorAll();
         b = 10;
         document.getElementById('testelm').style.backgroundColor = `rgb(0,0,${b},1)`;
     }
@@ -66,7 +79,7 @@ function noteOn(note) {
     if (note == 99)
     {
         b = 225;
-        audiopause();
+        //audiopause();
         let p5_ = new p5();
         console.log(p5_.map(0.5,0,1,0,100));
         document.getElementById('testelm').style.backgroundColor = `rgb(0,0,${b},1)`;
@@ -77,23 +90,54 @@ function noteOn(note) {
 function noteOff(note) {
     console.log(`note:${note} //off`);
     if(note == 64){
-        document.getElementById("testelm").innerHTML = "Back to normal"
+        document.getElementById("testelm").innerHTML = "Go back to the title.";
     }
     if(note == 84) {
         document.getElementById('testelm').style.backgroundColor = `rgb(255,255,255,1)`;
     }
     if(note == 94) {
-        audiopause();
+        //audiopause();
     }
 }
-function audioplay(){
+/*function audioplay(){
     audio.play();
 }
 function audiopause(){
     audio.pause();
+}*/
+
+function colorKeys(key, clr)
+{
+    device && device.send([0x90, key, clr]);
 }
 
-function apicallValue() {
+function clearAll() {
+    for(let i = 0; i < 100; i++)
+    {
+        colorKeys(i,0)
+    }
+}
+function colorAll(){
+    for(let i = 0; i < 100; i++)
+    {
+        colorKeys(i, i);
+    }
+}
+// Example directly sending a text string:
+
+//const deepai = require('deepai'); // OR include deepai.min.js as a script tag in your HTML
+
+deepai.setApiKey('1b14ccd1-cede-4104-b06b-c96b484df119');
+(async function() {
+    var resp = await deepai.callStandardApi("text2img", {
+            text: "cat",
+    });
+    console.log(resp);
+    console.log(resp.output_url);
+    document.getElementById("wacky_API").src = resp.output_url;
+})()
+
+/*function apicallValue() {
     //lat = '41.878';
     //lon = '-87.629';
     //APIkey = 'abe4d2e4b7080694f170017c8e38a045'
@@ -125,15 +169,16 @@ function apicallValue() {
              //console.log(Long);
 
 
-         /*if (data.readyState == 4 && data.status == 200) {
+         if (data.readyState == 4 && data.status == 200) {
              console.log(data);
              Lat == data.responseJSON.iss_position.latitude;
-             Long == data.responseJSON.iss_position.longitude;*/
+             Long == data.responseJSON.iss_position.longitude;
              //
              //console.log(remap(Lat));
              //console.log(remap(Long));
+             }
      
          }
      }
  });
-}
+} */
