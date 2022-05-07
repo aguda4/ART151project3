@@ -137,7 +137,7 @@ deepai.setApiKey('1b14ccd1-cede-4104-b06b-c96b484df119');
     document.getElementById("wacky_API").src = resp.output_url;
 })()
 
-/*function apicallValue() {
+function apicallValue() {
     //lat = '41.878';
     //lon = '-87.629';
     //APIkey = 'abe4d2e4b7080694f170017c8e38a045'
@@ -181,4 +181,4 @@ deepai.setApiKey('1b14ccd1-cede-4104-b06b-c96b484df119');
          }
      }
  });
-} */
+}
