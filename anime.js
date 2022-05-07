@@ -169,14 +169,14 @@ function apicallValue() {
              //console.log(Long);
 
 
-         if (data.readyState == 4 && data.status == 200) {
+         /*if (data.readyState == 4 && data.status == 200) {
              console.log(data);
              Lat == data.responseJSON.iss_position.latitude;
              Long == data.responseJSON.iss_position.longitude;
              //
              //console.log(remap(Lat));
              //console.log(remap(Long));
-             }
+             }*/
      
          }
      }
