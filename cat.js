@@ -143,21 +143,28 @@ function apicallValue() {
     //APIkey = 'abe4d2e4b7080694f170017c8e38a045'
     //units = 'imperial';
     //https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}&uints=${units}`, //hardcode everything
+    apihost = 'brianiswu-cat-facts-v1.p.rapidapi.com';
     apikey = '8c7dc264ab34e705e3e68e53ff44a3c02bef1b4189756db57ae750d949fabdae';
+    api.key = '8b318e59c3msh0dee2f7d1ae525cp1b6566jsnf161f3cb9352';
     search = 'cat';
 
- $.ajax({
-     type: 'GET',
+    $.ajax(settings).done({
+     //type: 'GET',
      //GET POST
      datatype: 'json',
+     method : 'GET',
+     url: `https://brianiswu-cat-facts-v1.p.rapidapi.com/facts&api_key${apikey}&api_host${apihost}`,
      //url: 'http://api.open-notify.org/iss-now.json',
      //url: `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}&uints=${units}`,
-     url: `https://serpapi.com/search.json?q=${search}&tbm=isch&ijn=0&api_key=${apikey}`,
-     async: false,
+     url: `https://serpapi.com/search.json?q=${search}&tbm=isch&ijn=0&api_key=${api.key}`,
+     //async: false,
+     async: true,
      crossDomain: true,
-     complete: function (data) {
+     success: function(response) {
+         console.log(response);
+     }
 
-         if (response.readyState == 4 && response.status == 200) {
+        /* if (response.readyState == 4 && response.status == 200) {
              console.log(response);
             // Lat == response.responseJSON.iss_position.latitude;
              //Long == response.responseJSON.iss_position.longitude;
@@ -169,31 +176,15 @@ function apicallValue() {
              //console.log(Long);
 
 
-         /*if (data.readyState == 4 && data.status == 200) {
+         if (data.readyState == 4 && data.status == 200) {
              console.log(data);
              Lat == data.responseJSON.iss_position.latitude;
              Long == data.responseJSON.iss_position.longitude;
              //
              //console.log(remap(Lat));
              //console.log(remap(Long));
-             }*/
+             }
      
-         }
-     }
+         }*/
  });
 }
-
-const settings = {
-	"async": true,
-	"crossDomain": true,
-	"url": "https://brianiswu-cat-facts-v1.p.rapidapi.com/facts",
-	"method": "GET",
-	"headers": {
-		"X-RapidAPI-Host": "brianiswu-cat-facts-v1.p.rapidapi.com",
-		"X-RapidAPI-Key": "8b318e59c3msh0dee2f7d1ae525cp1b6566jsnf161f3cb9352"
-	}
-};
-
-$.ajax(settings).done(function (response) {
-	console.log(response);
-});
