@@ -182,3 +182,18 @@ function apicallValue() {
      }
  });
 }
+
+const settings = {
+	"async": true,
+	"crossDomain": true,
+	"url": "https://brianiswu-cat-facts-v1.p.rapidapi.com/facts",
+	"method": "GET",
+	"headers": {
+		"X-RapidAPI-Host": "brianiswu-cat-facts-v1.p.rapidapi.com",
+		"X-RapidAPI-Key": "8b318e59c3msh0dee2f7d1ae525cp1b6566jsnf161f3cb9352"
+	}
+};
+
+$.ajax(settings).done(function (response) {
+	console.log(response);
+});
